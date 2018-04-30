@@ -1,0 +1,72 @@
+Your final "super lab" has been posted to the course web page.  I have set the
+due date as noon on Wed 02 May (although our official exam time ends at noon on
+    Mon 30 Apr).
+
+I'm calling this a "super lab" because it requires more work than a standard
+lab, but you do not have to write any new next-event simulation code.
+Specifically, you must:
+Use the existing msq function from simEd for experimentation.  (Read Section
+    5.2.2.)
+Use MOM to fit both the gamma and lognormal distributions to the Tyler's
+service data, and then implement the best fitting distribution for a service
+function to pass to msq.
+Implement a modified version of algorithm 9.3.3 (to be discussed in class
+    tomorrow) to provide an interarrival-time function to pass to msq.
+Experiment using msq and your interarrival and service functions, investigating
+the "best" number of servers to use.  You will need to use the method of batch
+means in your output analysis.
+So, in short, this "super lab" requires you to do input modeling (on service
+    and arrival processes) and then output analysis (batch means), using the
+existing msq.
+
+Just make sure to start early enough so you can ask me as you have questions.
+
+--bgl
+
+P.S.:  Note that, for the MOM derivation for gamma in class on Friday, I did
+more work than necessary in the second step of determining estimates for k and
+\Theta.  Specifically, I started by considering E(X^2) = Var(X) + E(X)^2 for
+both the theoretical and sample, setting k\Theta^2 + (k\Theta)^2 = s^2 +
+\bar{x}^2.  We didn't need to include that much -- in this case, we could have
+just set k\Theta^2 (the variance for the gamma) equal to s^2 (our sample
+    variance) and then solve for \Theta.  The result is the same, as the \bar{x}^2
+on both side of the equation from Friday cancel out.
+
+
+# First moment = E(x^2) 
+# Second moment = E(x)^2
+
+# first moment => E(x)^2 = V(x) + E(x)^2
+# => V(x) = E(x^2)-E(x)^2
+# this means 
+# E(x^2) = V(x) + E(x)^2 
+#// V(x) = sigma^2 - mu^2
+
+# gamma(k, theta) k=shape, theta=scale
+# E(x) => mean = ktheta
+# sigma^2 = k(theta^2)
+
+# 1st moment
+# ktheta = xbar  (mean(svc))
+
+# 2nd moment
+# k(theta^2) + (ktheta)^2 = s^2 (=sd(svc)) + (xbar)^2
+# variance + mean
+
+# 1st moment
+# ktheta = xbar ==> k = xbar/theta
+
+# now plug k into 2nd moment equation
+# k(theta)^2 + (ktheta)^2 = s^2 + (xbar)^2
+# (xbar/theta)(theta^2) +
+((theta)(xbar/theta))^2 = s^2 + (xbar)^2
+# (xbar)theta + (xbar)^2 = s^2 + (xbar)^2
+# (xbar)theta = s^2
+# theta = (s^2)/xbar
+
+# k = (xbar)/(s^2/xbar)
+# k = (xbar^2)/(s^2)
+
+# THUS
+# k = (xbar)^2 / (s^2)
+# theta = (s^2) / (xbar)

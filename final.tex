@@ -1,0 +1,147 @@
+% Are Oelsner
+% Simulations Final Lab
+\documentclass[11pt,addpoints,answers]{exam}
+\input{hwheader}
+
+\hwheader{Final Lab}
+{Are Oelsner}
+{Spring 2018, Lawson}
+{CS 326, Simulations}
+{Due: 12:00pm Wednesday, May 2}
+
+\begin{document}
+
+\noindent
+\paragraph{Overview:} You will incorporate input modeling techniques to use the
+Tyler's Grill data in a multiple-server queueing model, and then use output
+analysis, including batch means, to recommend a number of servers for Tyler's
+Grill.
+
+\vspace*{6pt}
+\centerline{\textbf{This work must be done on your own, not in a group.}}
+
+\begin{questions}
+  \question Read Section 5.2.2 of the textbook. 
+  Then inspect the source code for the existing {\tt msq} function from the
+  {\tt simEd} library, which implements a multiple-server queue model.
+
+  Benchmark the {\tt msq} implementation.  
+  Do so by providing evidence that output from {\tt msq} 
+  using one server matches output from the {\tt ssq} implementation.
+  \begin{solution}
+    I ran both msq and ssq with the same seed and a maxArrivals of 100 and
+    these are the first six sojourn times outputted for each:
+    \begin{itemize}
+      \item {\tt msq}: 0.01783502 1.64360925 1.38217328 2.46898049 2.07581526
+        1.71455047
+      \item {\tt ssq}: 0.01783502 1.64360925 1.38217328 2.46898049 2.07581526
+        1.71455047
+    \end{itemize}
+  \end{solution}
+     
+  \question Use the method of moments (MOM) to separately fit a {\it gamma}\,($k$,$\Theta$)
+  and a {\it lognormal}\,($\mu$,$\sigma^2$) distribution to the Tyler's service data.
+  \begin{enumerate}
+      
+    \item In class, we worked through the details of MOM for {\it gamma}.
+      In your write-up, provide the mathematical details and estimates
+      for $k$ and $\Theta$ determined using {\tt tylersGrill\$serviceTimes}.
+      \begin{solution}
+      \end{solution}
+      
+    \item To use MOM for determining parameter estimates for the {\it lognormal}
+      distribution, the easiest approach is to first take the log of the
+      service data and then fit the {\it normal} distribution using MOM.
+      (This is equivalent to fitting the {\it lognormal} distribution.)
+      In your write-up, provide the mathematical details, and estimates
+      for $\mu$ and $\sigma$ determined using {\tt tylersGrill\$serviceTimes}.
+      \begin{solution}
+      \end{solution}
+      
+    \item Provide an appropriately labeled graphic that includes a plot of
+      the ecdf of the service data (recall use of {\tt plot.stepfun}), and cdf
+      curves of the fitted {\it gamma} and {\it lognormal} distributions
+      superimposed.
+      Use solid blue and line width 2 for {\it gamma}; use dotted red and line
+      width 2 for {\it lognormal}.
+      \begin{solution}
+        %\includegraphics[scale=0.5]{code/arrival_process.pdf}
+      \end{solution}
+      
+    \item Use the Kolmogorov-Smirnov goodness of fit test to evaluate the
+      fits of the fitted {\it gamma} and {\it lognormal} distributions.
+      Using this test, which is determined to be the better fit?
+      Report the $D$ statistic for each.
+      \begin{solution}
+      \end{solution}
+      
+    \item Modify the service method in your {\tt msq} code to use service
+      times drawn from the best fitting distribution above.
+  \end{enumerate}
+   
+  \question Extend Algorithm 9.3.3 from the textbook to work in a next-event
+  fashion.  That is, Algorithm 9.3.3 as given produces a list of arrival times.
+  You must implement a method that, on each call, will remember the last
+  arrival and produce the next interarrival using the cumulative event rate
+  function produced by the Tyler's Grill arrival data.
+  \begin{enumerate}
+    \item Include this code as a function that can be passed as the
+      interarrival function to {\tt msq}.
+    \item Provide convincing graphical evidence that your arrival-process
+      function, in isolation, produces output consistent with the collected
+      Tyler's Grill arrival data.
+      An example is provided below, showing five different single-day arrival
+      process sequences superimposed on the original data.
+      \begin{solution}
+        \begin{center}
+          %\includegraphics[scale=0.5]{code/arrival_process.pdf}
+        \end{center}
+      \end{solution}
+  \end{enumerate}
+  
+  \question Experiment with different numbers of servers in the context of the
+  arrival and service processes above.  Provide meaningful statistics, with
+  confidence intervals.  In particular, use the method of batch means to
+  produce 95\% confidence intervals for the average sojourn time of customers
+  in the system.  (Since you do not know the true distribution of sojourn times
+  here, to convince yourself of correctness you should compute several such
+  intervals and look for overlap among the intervals.  Note that, in this
+  context, ``several'' need not be 100, as required in the batch means lab.)
+  \begin{solution}
+  \end{solution}
+  
+  \question Provide discussion that could be used to convince Tyler's Grill
+  management that a particular number of servers, fixed throughout the day,
+  could be used to provide ``reasonable'' service based on the collected
+  arrival and service data.
+  Remember that any recommendation will involve tradeoffs --- additional
+  servers do not come free of charge.
+  \begin{solution}
+  \end{solution}
+\end{questions}
+
+ \paragraph{Submitting:}
+ Include your source code and write-up.
+ Your write-up must include:
+    \vspace*{-10pt}
+    \begin{itemize}
+      \setlength{\itemsep}{0pt}
+      \item discussion of the next-event msq implementation (event types,
+        algorithms for those event types, etc.), and
+        evidence benchmarking your {\tt msq} against {\tt ssq};
+      \item appropriate derivations, graphics, and discussion used in fitting
+        the service data;  
+      \item appropriate discussion and graphics associated with the
+        non-parametric approach for generating arrival data;
+      \item appropriate numerical and/or graphical evidence of your
+        experimentation of different numbers of servers;
+      \item convincing discussion of the recommended number of servers to use
+        based on your simulation experimentation.
+    \end{itemize}
+    \vspace*{-10pt}
+ Package your work into a tarball named similar to {\tt cmsc326\_final\_bo4pz.tgz} and
+ drop into the {\tt final} folder within your shared Box folder for this course.
+
+
+\end{document}
+
